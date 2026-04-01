@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>선물 도착</title>
+    <meta property="og:title" content="🎁 선물이 도착했어요!" />
+    <meta property="og:description" content="지금 확인 안 하면 사라질 수도 있어요 😏" />
+    <meta property="og:image" content="https://kakao-nu.vercel.app/preview.png" />
+    <meta property="og:url" content="https://kakao-nu.vercel.app" />
+    <meta property="og:type" content="website" />
   <style>
     * {
       box-sizing: border-box;
@@ -216,13 +221,6 @@
   </style>
 </head>
  <meta charset="UTF-8" />
-
-  <meta property="og:title" content="🎁 선물이 도착했어요!" />
-  <meta property="og:description" content="지금 확인 안 하면 사라질 수도 있어요 😏" />
-  <meta property="og:image" content="https://kakao-nu.vercel.app/preview.png" />
-  <meta property="og:url" content="https://kakao-nu.vercel.app" />
-  <meta property="og:type" content="website" />
-
 <body>
   <div class="card">
     <div class="badge">🎁 선물이 도착했어요</div>
@@ -278,7 +276,7 @@
     } else if (name) {
       customMsg.textContent = `${decodeURIComponent(name)}아, 속았지? 😜`;
     } else {
-      customMsg.textContent = "속았지? 오늘 하루 기분 좋게 보내자 😎";
+      customMsg.textContent = "오늘 하루 기분 좋게 보내자 😎";
     }
 
     function createConfetti() {
