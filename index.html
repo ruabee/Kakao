@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>선물 도착</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #fff9d9, #fff3a3);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #222;
+    }
+
+    .card {
+      width: 92%;
+      max-width: 420px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      padding: 28px 22px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ffe812;
+      color: #3b2f00;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 8px 0 10px;
+      font-size: 28px;
+    }
+
+    p {
+      margin: 8px 0;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .gift-box {
+      width: 150px;
+      height: 150px;
+      margin: 28px auto 22px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.04);
+    }
+
+    .box-bottom {
+      width: 150px;
+      height: 95px;
+      background: #ffcc00;
+      border-radius: 0 0 18px 18px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      box-shadow: inset 0 -8px 0 rgba(0,0,0,0.07);
+    }
+
+    .box-top {
+      width: 150px;
+      height: 45px;
+      background: #ffd93b;
+      border-radius: 16px;
+      position: absolute;
+      top: 18px;
+      left: 0;
+      z-index: 2;
+      transition: all 0.6s ease;
+      box-shadow: inset 0 -6px 0 rgba(0,0,0,0.05);
+    }
+
+    .ribbon-v {
+      width: 20px;
+      height: 150px;
+      background: #ff5b6e;
+      position: absolute;
+      left: 65px;
+      top: 0;
+      z-index: 3;
+      border-radius: 10px;
+    }
+
+    .ribbon-h {
+      width: 150px;
+      height: 20px;
+      background: #ff5b6e;
+      position: absolute;
+      left: 0;
+      top: 50px;
+      z-index: 3;
+      border-radius: 10px;
+    }
+
+    .bow-left, .bow-right {
+      width: 34px;
+      height: 34px;
+      border: 10px solid #ff5b6e;
+      border-radius: 50% 50% 50% 0;
+      position: absolute;
+      top: -4px;
+      z-index: 4;
+      background: transparent;
+    }
+
+    .bow-left {
+      left: 44px;
+      transform: rotate(35deg);
+    }
+
+    .bow-right {
+      right: 44px;
+      transform: scaleX(-1) rotate(35deg);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .open .box-top {
+      transform: translateY(-65px) rotate(-12deg);
+    }
+
+    .reveal {
+      animation: pop 0.5s ease;
+      margin-top: 12px;
+    }
+
+    .reveal h2 {
+      font-size: 30px;
+      margin: 8px 0;
+      color: #ff4f64;
+    }
+
+    .reveal .big {
+      font-size: 52px;
+      margin: 10px 0;
+    }
+
+    button {
+      margin-top: 18px;
+      width: 100%;
+      border: none;
+      background: #222;
+      color: white;
+      padding: 14px 16px;
+      font-size: 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .sub-btn {
+      background: #f1f1f1;
+      color: #222;
+      margin-top: 10px;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 16px;
+      opacity: 0.9;
+      animation: fall linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.85);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">🎁 선물이 도착했어요</div>
+    <h1>깜짝 선물 확인하기</h1>
+    <p id="desc">아래 선물 상자를 눌러 확인해보세요.</p>
+
+    <div class="gift-box" id="giftBox">
+      <div class="box-top"></div>
+      <div class="box-bottom"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+      <div class="bow-left"></div>
+      <div class="bow-right"></div>
+    </div>
+
+    <div id="beforeText">
+      <p>누군가 정성껏 준비한 선물이 기다리고 있어요 👀</p>
+    </div>
+
+    <div id="reveal" class="reveal hidden">
+      <div class="big">😆</div>
+      <h2>만우절이다!!!</h2>
+      <p>선물은 없지만 오늘은 웃을 일만 가득하길 바라 💛</p>
+      <p id="customMsg"></p>
+    </div>
+
+    <button id="openBtn">선물 열어보기</button>
+    <button id="resetBtn" class="sub-btn hidden">다시 장난치기</button>
+
+    <div class="footer-note">April Fool’s prank page</div>
+  </div>
+
+  <script>
+    const giftBox = document.getElementById("giftBox");
+    const openBtn = document.getElementById("openBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const reveal = document.getElementById("reveal");
+    const beforeText = document.getElementById("beforeText");
+    const desc = document.getElementById("desc");
+    const customMsg = document.getElementById("customMsg");
+
+    // URL 뒤에 ?name=민수&msg=속았지%3F 넣으면 문구 바뀜
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const msg = params.get("msg");
+
+    if (name) {
+      desc.textContent = `${decodeURIComponent(name)}님을 위한 깜짝 선물이 준비되었어요.`;
+    }
+
+    if (msg) {
+      customMsg.textContent = decodeURIComponent(msg);
+    } else if (name) {
+      customMsg.textContent = `${decodeURIComponent(name)}아, 속았지? 😜`;
+    } else {
+      customMsg.textContent = "속았지? 오늘 하루 기분 좋게 보내자 😎";
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 45; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = (2 + Math.random() * 3) + "s";
+        confetti.style.background = ["#ff5b6e", "#ffd93b", "#6bcBef", "#9d4edd", "#4cd137"][Math.floor(Math.random() * 5)];
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    }
+
+    function openGift() {
+      giftBox.classList.add("open");
+      reveal.classList.remove("hidden");
+      beforeText.classList.add("hidden");
+      openBtn.classList.add("hidden");
+      resetBtn.classList.remove("hidden");
+      createConfetti();
+    }
+
+    function resetGift() {
+      giftBox.classList.remove("open");
+      reveal.classList.add("hidden");
+      beforeText.classList.remove("hidden");
+      openBtn.classList.remove("hidden");
+      resetBtn.classList.add("hidden");
+    }
+
+    openBtn.addEventListener("click", openGift);
+    giftBox.addEventListener("click", openGift);
+    resetBtn.addEventListener("click", resetGift);
+  </script>
+</body>
+</html>
