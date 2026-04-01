@@ -237,12 +237,12 @@
     </div>
 
     <div id="beforeText">
-      <p>누군가 정성껏 준비한 선물이 기다리고 있어요 👀</p>
+      <p>준희님이 정성껏 준비한 선물이 기다리고 있어요 👀</p>
     </div>
 
     <div id="reveal" class="reveal hidden">
       <div class="big">😆</div>
-      <h2>만우절이다!!!</h2>
+      <h2>만우절이다!!! 자기 메롱</h2>
       <p>오늘은 웃을 일만 가득하길 바라 💛</p>
       <p id="customMsg"></p>
     </div>
@@ -264,8 +264,8 @@
 
     // URL 뒤에 ?name=??&msg=속았지%3F 넣으면 문구 바뀜
     const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
-    const msg = params.get("msg");
+    const name = params.get("지성");
+    const msg = params.get("사랑해");
 
     if (name) {
       desc.textContent = `${decodeURIComponent(name)}님을 위한 깜짝 선물이 준비되었어요.`;
