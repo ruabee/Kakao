@@ -264,8 +264,9 @@
 
     // URL 뒤에 ?name=??&msg=속았지%3F 넣으면 문구 바뀜
     const params = new URLSearchParams(window.location.search);
-    const name = params.get("지성");
-    const msg = params.get("사랑해");
+    const name = params.get("name");
+    const msg = params.get("msg");
+    
 
     if (name) {
       desc.textContent = `${decodeURIComponent(name)}님을 위한 깜짝 선물이 준비되었어요.`;
@@ -276,7 +277,7 @@
     } else if (name) {
       customMsg.textContent = `${decodeURIComponent(name)}아, 속았지? 😜`;
     } else {
-      customMsg.textContent = "오늘 하루 기분 좋게 보내자 😎";
+      customMsg.textContent = "하루 기분 좋게 보내자 😎";
     }
 
     function createConfetti() {
