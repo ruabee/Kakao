@@ -215,6 +215,14 @@
     }
   </style>
 </head>
+ <meta charset="UTF-8" />
+
+  <meta property="og:title" content="🎁 선물이 도착했어요!" />
+  <meta property="og:description" content="지금 확인 안 하면 사라질 수도 있어요 😏" />
+  <meta property="og:image" content="https://kakao-nu.vercel.app/preview.png" />
+  <meta property="og:url" content="https://kakao-nu.vercel.app" />
+  <meta property="og:type" content="website" />
+
 <body>
   <div class="card">
     <div class="badge">🎁 선물이 도착했어요</div>
@@ -237,7 +245,7 @@
     <div id="reveal" class="reveal hidden">
       <div class="big">😆</div>
       <h2>만우절이다!!!</h2>
-      <p>선물은 없지만 오늘은 웃을 일만 가득하길 바라 💛</p>
+      <p>오늘은 웃을 일만 가득하길 바라 💛</p>
       <p id="customMsg"></p>
     </div>
 
@@ -256,7 +264,7 @@
     const desc = document.getElementById("desc");
     const customMsg = document.getElementById("customMsg");
 
-    // URL 뒤에 ?name=민수&msg=속았지%3F 넣으면 문구 바뀜
+    // URL 뒤에 ?name=??&msg=속았지%3F 넣으면 문구 바뀜
     const params = new URLSearchParams(window.location.search);
     const name = params.get("name");
     const msg = params.get("msg");
